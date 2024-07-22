@@ -1,7 +1,7 @@
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import '../../index.css';
 import styles from './app.module.css';
-import { useDispatch } from '@store';
+import { useDispatch, useSelector } from '@store'; // ссылка видущая на @store, там хранятся наши хуки
 import {
   ConstructorPage,
   Feed,
@@ -31,7 +31,7 @@ import {
 
 import { useEffect } from 'react';
 import { Preloader } from '../ui/preloader';
-import { useSelector } from 'react-redux';
+
 const App = () => {
   const location = useLocation();
   const dispatch = useDispatch();

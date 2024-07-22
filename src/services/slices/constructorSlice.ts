@@ -1,5 +1,10 @@
-import { createSlice, createAsyncThunk, nanoid } from '@reduxjs/toolkit';
-import { TConstructorIngredient, TOrder } from '@utils-types';
+import {
+  PayloadAction,
+  createSlice,
+  createAsyncThunk,
+  nanoid
+} from '@reduxjs/toolkit';
+import { TConstructorIngredient, TOrder, TIngredient } from '@utils-types';
 import { orderBurgerApi } from '@api';
 import { stat } from 'fs';
 
@@ -34,16 +39,21 @@ const constructorSlice = createSlice({
   name: 'constructorbg',
   initialState,
   reducers: {
-    addIngredient: (state, action) => {
-      if (action.payload.type === 'bun') {
-        state.constructorItems.bun = action.payload;
-      } else {
-        state.constructorItems.ingredients.push({
-          ...action.payload,
-          id: nanoid()
-        });
-      }
+    addIngredient: {
+      reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
+        if (action.payload.type === 'bun')
+          state.constructorItems.bun = action.payload;
+        else state.constructorItems.ingredients.push(action.payload);
+      },
+      prepare: (ingredient: TIngredient) => ({
+        payload: { ...ingredient, id: nanoid() }
+      })
     },
+    // Был еще вот такой вариант, он имеет другой тип в if else и там тоже нужно было бы внести изменения
+    //prepare: (ingredient: TConstructorIngredient) => {
+    //     const id = uuidv4();
+    //     return { payload: { ...ingredient, id } };
+    //   }
     removeIngredient: (state, action) => {
       state.constructorItems.ingredients =
         state.constructorItems.ingredients.filter(
