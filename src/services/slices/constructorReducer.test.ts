@@ -15,7 +15,7 @@ jest.mock('@reduxjs/toolkit', () => ({
   nanoid: jest.fn(() => 'mockedID')
 }));
 
-describe('Тест экшенов конструктора', () => {
+describe('Тест экшенов конструктора ConstructorReducer', () => {
   const startState: constructorState = JSON.parse(JSON.stringify(constructorInitialState));
   startState.constructorItems = {
     bun: {

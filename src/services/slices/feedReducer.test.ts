@@ -9,7 +9,7 @@ const setupStore = () =>
     }
   });
 
-describe('Тесты экшенов ленты', () => {
+describe('Тесты экшенов ленты feedReducer', () => {
   describe('Тесты экшена получения ленты', () => {
     test('Тест экшена ожидания ответ после запроса ленты', () => {
       const store = setupStore();

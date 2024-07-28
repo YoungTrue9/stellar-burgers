@@ -9,27 +9,34 @@ const setupStore = () =>
     }
   });
 
-describe('Тесты экшенов заказа', () => {
+describe('Тесты экшенов заказа orderReducer', () => {
   describe('Тесты экшена получения данных заказа', () => {
     test('Тест экшена ожидания ответа после получения данных заказа', () => {
       const store = setupStore();
+
       store.dispatch({ type: getOrderThunk.pending.type });
+
       const state = store.getState();
+
       expect(state.order.isLoading).toBeTruthy();
       expect(state.order.error).toBeNull();
     });
     test('Тест экшена ошибки после получения данных заказа', () => {
       const store = setupStore();
       const error = 'mocked error';
+
       store.dispatch({
         type: getOrderThunk.rejected.type,
         error: { message: error }
       });
+
       const state = store.getState();
+
       expect(state.order.isLoading).toBeFalsy();
       expect(state.order.error).toBe(error);
     });
     test('Тест экшена успешного ответа после получения данных заказа', () => {
+        
       const mockedPayload = {
         orders: [
           {
@@ -54,12 +61,16 @@ describe('Тесты экшенов заказа', () => {
           }
         ]
       };
+
       const store = setupStore();
+
       store.dispatch({
         type: getOrderThunk.fulfilled.type,
         payload: mockedPayload
       });
+
       const state = store.getState();
+
       expect(state.order.isLoading).toBeFalsy();
       expect(state.order.error).toBeNull();
       expect(state.order.order).toEqual(mockedPayload.orders[0]);
