@@ -19,9 +19,7 @@ describe('Тест корневого редьюсера', () => {
   test('Тест инициализации корневого редьюсера', () => {
 
     const action = { type: 'UNKNOW_ACTION' }; 
-    
     const newState = rootReducer(undefined, action);
-
     expect(newState).toEqual(initialState);
   });
 });
